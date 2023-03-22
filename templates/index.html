@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>model deployment</title>
+</head>
+<body>
+    <h1>Predict early heart disease</h1>
+    <p>Enter age, sex and cp</p>
+    <form action="/submit" method="POST">
+
+        <table style="padding: 20px;">
+            <tr>
+              <th>Features</th>
+              <th>Value</th>
+            </tr>
+            <tr>
+              <td>Age</td>
+              <td><input type="number" name="age"></td>
+            </tr>
+            <tr>
+              <td>Gender</td>
+              <td>
+                <label for="sex"></label>
+                <input list="Gender" name="sex" id="sex">
+        
+                <datalist id="Gender">
+                <option value="Male">
+                <option value="Female">
+                </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Type of chest pain</td>
+                <td>
+                    <label for="Pain"></label>
+                    <input list="Chest_pain" name="cp" id="Pain">
+            
+                    <datalist id="Chest_pain">
+                    <option value="Typical angina">
+                    <option value="Atypical angina">
+                    <option value="Non-angina">
+                    <option value="Asymptomatic">
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Resting Blood pressure(in mm Hg)</td>
+                <td><input type="number" name="trtbps"></td>
+            </tr>
+    
+            <tr>
+                <td>Cholestoral in mb/dl fetched via BMI sensor</td>
+                <td><input type="number" name="chol"></td>
+            </tr>
+            <tr>
+                <td>Choose fasting blood sugar > 120mg/dl:</td>
+                <td>
+                    <label for="fbs"></label>
+                    <input list="fbss" name="fbs" id="fbs">
+            
+                    <datalist id="fbss">
+                    <option value="True">
+                    <option value="False">
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Choose resting electrocardiographic result:</td>
+                <td>
+                    <label for="restecg"></label>
+                    <input list="rest_ecg" name="restecg" id="restecg">
+
+                    <datalist id="rest_ecg">
+                    <option value="Normal">
+                    <option value="Having ST-T wave abnormality">
+                    <option value="Showing probable of definite left ventricular hypertrophy by Estes' criteria"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Maximum heart rate achieved</td>
+                <td>
+                    <input type="number" name="thalachh">
+                </td>
+            </tr>
+            <tr>
+                <td>Choose exercise induced angina</td>
+                <td>
+                    <label for="exng"></label>
+                    <input list="ex_ang" name="exng" id="exng">
+
+                    <datalist id="ex_ang">
+                    <option value="Yes"></option>
+                    <option value="No"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>ST Depression Induced by Exercise(oldpeak)</td>
+                <td>
+                    <input type="number" name="oldpeak" step="any">
+                </td>
+            </tr>
+            <tr>
+                <td>Slope of the Peak Exercise ST Segment </td>
+                <td>
+                    <label for="slp"></label>
+                    <input list="st_slp" name="slp" id="slp">
+
+                    <datalist id="st_slp">
+                    <option value="Unsloping"></option>
+                    <option value="Flat"></option>
+                    <option value="Downsloping"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Number of major vessels</td>
+                <td>
+                    <label for="caa"></label>
+                    <input list="v_caa" name="caa" id="caa">
+
+                    <datalist id="v_caa">
+                    <option value="0"></option>
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Thalassemia</td>
+                <td>
+                    <label for="thall"></label>
+                    <input list="thall_rate" name="thall" id="thall">
+
+                    <datalist id="thall_rate">
+                    <option value="NULL or no information"></option>
+                    <option value="Normal blood flow observed"></option>
+                    <option value="Blood flow observed but it is considered to be a defect"></option>
+                    <option value="Blood flow observed but with reversible defect`"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+          </table>
+          
+        
+        
+        
+        
+        
+        
+
+
+    </form>
+    
+</body>
+</html>
