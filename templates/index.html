@@ -1,166 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>model deployment</title>
+    <title>Early Heart Attack Prediction</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
 </head>
+
 <body>
-    <h1>Predict early heart disease</h1>
-    <p>Enter age, sex and cp</p>
-    <form action="/submit" method="POST">
+    <div class="container">
+        {% block image %}
+        <img src="{{ url_for('static', filename='img/heart.png') }}" alt="heart" width="100" height="100">
+        {% endblock %}
 
-        <table style="padding: 20px;">
-            <tr>
-              <th>Features</th>
-              <th>Value</th>
-            </tr>
-            <tr>
-              <td>Age</td>
-              <td><input type="number" name="age"></td>
-            </tr>
-            <tr>
-              <td>Gender</td>
-              <td>
-                <label for="sex"></label>
-                <input list="Gender" name="sex" id="sex">
-        
-                <datalist id="Gender">
-                <option value="Male">
-                <option value="Female">
-                </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>Type of chest pain</td>
-                <td>
-                    <label for="Pain"></label>
-                    <input list="Chest_pain" name="cp" id="Pain">
-            
-                    <datalist id="Chest_pain">
-                    <option value="Typical angina">
-                    <option value="Atypical angina">
-                    <option value="Non-angina">
-                    <option value="Asymptomatic">
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>Resting Blood pressure(in mm Hg)</td>
-                <td><input type="number" name="trtbps"></td>
-            </tr>
-    
-            <tr>
-                <td>Cholestoral in mb/dl fetched via BMI sensor</td>
-                <td><input type="number" name="chol"></td>
-            </tr>
-            <tr>
-                <td>Choose fasting blood sugar > 120mg/dl:</td>
-                <td>
-                    <label for="fbs"></label>
-                    <input list="fbss" name="fbs" id="fbs">
-            
-                    <datalist id="fbss">
-                    <option value="True">
-                    <option value="False">
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>Choose resting electrocardiographic result:</td>
-                <td>
-                    <label for="restecg"></label>
-                    <input list="rest_ecg" name="restecg" id="restecg">
+        {% block content %}
+        <h1>Early Heart Attack Prediction</h1>
+        <form action="/result" method="POST">
 
-                    <datalist id="rest_ecg">
-                    <option value="Normal">
-                    <option value="Having ST-T wave abnormality">
-                    <option value="Showing probable of definite left ventricular hypertrophy by Estes' criteria"></option>
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>Maximum heart rate achieved</td>
-                <td>
-                    <input type="number" name="thalachh">
-                </td>
-            </tr>
-            <tr>
-                <td>Choose exercise induced angina</td>
-                <td>
-                    <label for="exng"></label>
-                    <input list="ex_ang" name="exng" id="exng">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" placeholder="Enter age" name="age">
+            </div>
 
-                    <datalist id="ex_ang">
-                    <option value="Yes"></option>
-                    <option value="No"></option>
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>ST Depression Induced by Exercise(oldpeak)</td>
-                <td>
-                    <input type="number" name="oldpeak" step="any">
-                </td>
-            </tr>
-            <tr>
-                <td>Slope of the Peak Exercise ST Segment </td>
-                <td>
-                    <label for="slp"></label>
-                    <input list="st_slp" name="slp" id="slp">
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select class="form-control" id="sex" name="sex">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
 
-                    <datalist id="st_slp">
-                    <option value="Unsloping"></option>
-                    <option value="Flat"></option>
-                    <option value="Downsloping"></option>
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>Number of major vessels</td>
-                <td>
-                    <label for="caa"></label>
-                    <input list="v_caa" name="caa" id="caa">
+            <div class="form-group">
+                <label for="cp">Chest Pain Type:</label>
+                <select class="form-control" id="cp" name="cp">
+                    <option value="1">Typical Angina</option>
+                    <option value="2">Atypical Angina</option>
+                    <option value="3">Non-Anginal Pain</option>
+                    <option value="4">Asymptomatic</option>
+                </select>
+            </div>
 
-                    <datalist id="v_caa">
-                    <option value="0"></option>
-                    <option value="1"></option>
-                    <option value="2"></option>
-                    <option value="3"></option>
-                    <option value="4"></option>
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>Thalassemia</td>
-                <td>
-                    <label for="thall"></label>
-                    <input list="thall_rate" name="thall" id="thall">
+            <div class="form-group">
+                <label for="trtbps">Resting Blood Pressure (in mm Hg):</label>
+                <input type="number" class="form-control" id="trtbps" placeholder="Enter resting blood pressure"
+                    name="trtbps">
+            </div>
 
-                    <datalist id="thall_rate">
-                    <option value="NULL or no information"></option>
-                    <option value="Normal blood flow observed"></option>
-                    <option value="Blood flow observed but it is considered to be a defect"></option>
-                    <option value="Blood flow observed but with reversible defect`"></option>
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit"></td>
-            </tr>
-          </table>
-          
-        
-        
-        
-        
-        
-        
+            <div class="form-group">
+                <label for="chol">Cholesterol (in mg/dL):</label>
+                <input type="number" class="form-control" id="chol" placeholder="Enter cholesterol" name="chol">
+            </div>
 
 
-    </form>
-    
+            <div class="form-group">
+                <label for="restecg">Resting Electrocardiographic Results:</label>
+                <select class="form-control" id="restecg" name="restecg">
+                    <option value="0">Normal</option>
+                    <option value="1">ST-T Wave Abnormality</option>
+                    <option value="2">Probable or Definite Left Ventricular Hypertrophy by Estes' Criteria</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="thalachh">Maximum Heart Rate Achieved:</label>
+                <input type="number" class="form-control" id="thalachh" placeholder="Enter maximum heart rate achieved"
+                    name="thalachh">
+            </div>
+
+            <div class="form-group">
+                <label for="exang">Exercise Induced Angina:</label>
+                <select class="form-control" id="exng" name="exng">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest (Oldpeak):</label>
+                <input type="number" step="0.01" class="form-control" id="oldpeak" placeholder="Enter oldpeak"
+                    name="oldpeak">
+            </div>
+
+            <div class="form-group">
+                <label for="slp">Slope of the Peak Exercise ST Segment:</label>
+                <select class="form-control" id="slp" name="slp">
+                    <option value="0">Upsloping</option>
+                    <option value="1">Flat</option>
+                    <option value="2">Downsloping</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="caa">Number of Major Vessels (0-4):</label>
+                <input type="number" class="form-control" id="caa" placeholder="Enter number of major vessels"
+                    name="caa">
+            </div>
+
+            <div class="form-group">
+                <label for="thall">Thalassemia:</label>
+                <select class="form-control" id="thall" name="thall">
+                    <option value="0">Null</option>
+                    <option value="1">Fixed Defect</option>
+                    <option value="2">Normal</option>
+                    <option value="3">Reversible Defect</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fbs">O<sub>2</sub> Saturation %</label>
+                <input type="number" step="0.01" class="form-control" id="o2Saturation"
+                    placeholder="Enter O2 Saturation %" name="o2Saturation">
+
+                </select>
+            </div>
+
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    {% endblock %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNVQ8ew"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
 </body>
+
 </html>
