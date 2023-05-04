@@ -9,7 +9,13 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Result</h1>
-            <p>{{ result }}</p>
+            <h2 style="
+            {% if result == 'Risky' %}
+                color: red;
+            {% else %}
+                color: green;
+            {% endif %}
+            ">{{ result }}</h2>
         </div>
     </div>
 </div>
