@@ -8,6 +8,11 @@ app = Flask(__name__)
 filename = r'model/heart_disease.pkl'
 model = pickle.load(open(filename, 'rb'))
 
+# load the scaler
+scaler_filename = r'model/scaler.pkl'
+scaler = pickle.load(open(scaler_filename, 'rb'))
+
+
 @app.route("/")
 def home():
     return render_template('/index.html')
@@ -30,7 +35,10 @@ def submit():
     o2Saturation = float(request.form['o2Saturation'])
 
     data = np.array([age,sex,cp,trtbps,chol,restecg,thalachh,exng,oldpeak,slp,caa,thall,o2Saturation])
-    output = model.predict([data])[0]
+    data = data.reshape(1, -1)
+    data = scaler.transform(data)
+
+    output = model.predict(data)
     print(output)
 
     if output == 0:
